@@ -15,6 +15,12 @@ return [
                     RouteConfigKeys::HTTP_METHOD => Request::METHOD_GET,
                     RouteConfigKeys::CONTROLLER => Shapes::class,
                     RouteConfigKeys::CONTROLLER_ACTION => 'circle'
+                ],
+                [
+                    RouteConfigKeys::ROUTE => '/square',
+                    RouteConfigKeys::HTTP_METHOD => Request::METHOD_GET,
+                    RouteConfigKeys::CONTROLLER => Shapes::class,
+                    RouteConfigKeys::CONTROLLER_ACTION => 'square'
                 ]
             ]
         ]
