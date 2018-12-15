@@ -80,6 +80,30 @@ class Shapes
     }
 
     /**
+     * @throws InvalidParameterException
+     */
+    public function rectangle()
+    {
+        $length = $this->getRequest()->getRequestParam(Request::METHOD_POST, 'length');
+        $width = $this->getRequest()->getRequestParam(Request::METHOD_POST, 'width');
+
+        if (false === filter_var($length, FILTER_VALIDATE_FLOAT)) {
+            throw InvalidParameterException::create('Please pass length of rectangle as float or int.');
+        }
+
+        if (false === filter_var($width, FILTER_VALIDATE_FLOAT)) {
+            throw InvalidParameterException::create('Please pass width of rectangle as float or int.');
+        }
+
+        try {
+            $rectangle = $this->getShapesFactory()->createRectangle((float) $length, (float) $width);
+            $this->getResponse()->toJson($rectangle->describe());
+        } catch (Throwable $ex) {
+            header($ex->getMessage(), true, 500);
+        }
+    }
+
+    /**
      * @return ShapesFactoryInterface
      */
     private function getShapesFactory(): ShapesFactoryInterface

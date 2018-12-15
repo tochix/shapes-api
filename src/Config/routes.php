@@ -21,7 +21,13 @@ return [
                     RouteConfigKeys::HTTP_METHOD => Request::METHOD_GET,
                     RouteConfigKeys::CONTROLLER => Shapes::class,
                     RouteConfigKeys::CONTROLLER_ACTION => 'square'
-                ]
+                ],
+                [
+                RouteConfigKeys::ROUTE => '/rectangle',
+                RouteConfigKeys::HTTP_METHOD => Request::METHOD_POST,
+                RouteConfigKeys::CONTROLLER => Shapes::class,
+                RouteConfigKeys::CONTROLLER_ACTION => 'rectangle'
+            ]
             ]
         ]
     ]
