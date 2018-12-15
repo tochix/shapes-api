@@ -43,12 +43,9 @@ class Shapes
         }
 
         try {
-            $resp = [
-                'area' => $this->getShapesFactory()->createCircle((float) $radius)->getArea(),
-                'type' => 'circle',
-                'parameters' => 'radius:' . $radius
-            ];
-            $this->getResponse()->toJson($resp);
+            $circle = $this->getShapesFactory()->createCircle((float) $radius);
+            $this->getResponse()->toJson($circle->describe());
+
         } catch (Throwable $ex) {
             header($ex->getMessage(), true, 500);
         }

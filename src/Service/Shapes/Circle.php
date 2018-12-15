@@ -2,8 +2,10 @@
 
 namespace App\Service\Shapes;
 
-class Circle implements ShapesAreaInterface
+class Circle extends Shape
 {
+    const SHAPE_NAME = 'circle';
+
     /**
      * @var float
      */
@@ -23,5 +25,29 @@ class Circle implements ShapesAreaInterface
     public function getArea(): float
     {
         return M_PI * ($this->radius ** 2);
+    }
+
+    /**
+     * @return string
+     */
+    public function getShapeName(): string
+    {
+        return static::SHAPE_NAME;
+    }
+
+    /**
+     * @return string
+     */
+    public function getParameterDescription(): string
+    {
+        return 'radius: '. $this->getRadius();
+    }
+
+    /**
+     * @return float
+     */
+    private function getRadius(): float
+    {
+        return $this->radius;
     }
 }

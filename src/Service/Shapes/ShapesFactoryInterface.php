@@ -6,7 +6,7 @@ interface ShapesFactoryInterface
 {
     /**
      * @param float $radius
-     * @return ShapesAreaInterface
+     * @return ShapeInterface
      */
-    public function createCircle(float $radius): ShapesAreaInterface;
+    public function createCircle(float $radius): ShapeInterface;
 }
