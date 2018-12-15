@@ -2,21 +2,21 @@
 
 namespace App\Service\Shapes;
 
-class Circle extends Shape
+class Square extends Shape
 {
-    const SHAPE_NAME = 'circle';
+    const SHAPE_NAME = 'square';
 
     /**
      * @var float
      */
-    private $radius;
+    private $length;
 
     /**
-     * @param float $radius
+     * @param float $length
      */
-    public function __construct(float $radius)
+    public function __construct(float $length)
     {
-        $this->radius = $radius;
+        $this->length = $length;
     }
 
     /**
@@ -24,7 +24,7 @@ class Circle extends Shape
      */
     public function getArea(): float
     {
-        return M_PI * ($this->getRadius() ** 2);
+        return ($this->getLength() ** 2);
     }
 
     /**
@@ -40,14 +40,14 @@ class Circle extends Shape
      */
     public function getParameterDescription(): string
     {
-        return 'radius: '. $this->getRadius();
+        return 'length: '. $this->getLength();
     }
 
     /**
      * @return float
      */
-    private function getRadius(): float
+    private function getLength(): float
     {
-        return $this->radius;
+        return $this->length;
     }
 }

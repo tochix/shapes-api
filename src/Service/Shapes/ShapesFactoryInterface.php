@@ -9,4 +9,10 @@ interface ShapesFactoryInterface
      * @return ShapeInterface
      */
     public function createCircle(float $radius): ShapeInterface;
+
+    /**
+     * @param float $length
+     * @return Square
+     */
+    public function createSquare(float $length): Square;
 }

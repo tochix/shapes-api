@@ -12,4 +12,13 @@ class ShapesFactory implements ShapesFactoryInterface
     {
         return new Circle($radius);
     }
+
+    /**
+     * @param float $length
+     * @return Square
+     */
+    public function createSquare(float $length): Square
+    {
+        return new Square($length);
+    }
 }
