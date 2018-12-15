@@ -30,14 +30,6 @@ class Circle extends Shape
     /**
      * @return string
      */
-    public function getShapeName(): string
-    {
-        return static::SHAPE_NAME;
-    }
-
-    /**
-     * @return string
-     */
     public function getParameterDescription(): string
     {
         return 'radius: '. $this->getRadius();
