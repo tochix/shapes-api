@@ -13,4 +13,11 @@ interface RequestInterface
      * @return string
      */
     public function getUri(): string;
+
+    /**
+     * @param string $type
+     * @param string $parameter
+     * @return null|string
+     */
+    public function getRequestParam(string $type, string $parameter);
 }
