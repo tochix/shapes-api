@@ -2,7 +2,7 @@
 
 namespace App\Service\Shapes;
 
-class Rectangle
+class Rectangle extends Shape
 {
     const SHAPE_NAME = 'rectangle';
 

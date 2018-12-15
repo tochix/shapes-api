@@ -15,4 +15,11 @@ interface ShapesFactoryInterface
      * @return Square
      */
     public function createSquare(float $length): Square;
+
+    /**
+     * @param float $length
+     * @param float $width
+     * @return Rectangle
+     */
+    public function createRectangle(float $length, float $width): Rectangle;
 }

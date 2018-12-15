@@ -21,4 +21,14 @@ class ShapesFactory implements ShapesFactoryInterface
     {
         return new Square($length);
     }
+
+    /**
+     * @param float $length
+     * @param float $width
+     * @return Rectangle
+     */
+    public function createRectangle(float $length, float $width): Rectangle
+    {
+        return new Rectangle($length, $width);
+    }
 }
