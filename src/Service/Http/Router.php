@@ -63,6 +63,12 @@ class Router
         $this->dispatch($requestMethod, $requestUri, $dispatcher);
     }
 
+    public function sendErrorResponse($message, $httpCode)
+    {
+        http_response_code($httpCode);
+        echo $message;
+    }
+
     /**
      * @param string $requestMethod
      * @param string $requestUri

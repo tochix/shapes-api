@@ -18,7 +18,7 @@ $router = new Router(
 try {
     $router->dispatchRoute();
 } catch (ApiException $ex) {
-    header($ex->getMessage(), true, $ex->getCode());
+    $router->sendErrorResponse($ex->getMessage(), $ex->getCode());
 } catch (Throwable $ex) {
-    header($ex->getMessage(), true, 500);
+    $router->sendErrorResponse($ex->getMessage(), 500);
 }
