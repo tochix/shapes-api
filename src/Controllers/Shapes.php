@@ -1,32 +1,19 @@
-<?php /** @noinspection ReturnFalseInspection */
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 namespace App\Controllers;
 
 use App\Controllers\Exceptions\InvalidParameterException;
 use App\Service\Http\Request;
 use App\Service\Http\Response;
-use App\Service\Http\ResponseInterface;
 use App\Service\Shapes\ShapesFactory;
 use App\Service\Shapes\ShapesFactoryInterface;
-use Throwable;
 
-class Shapes
+class Shapes extends BaseController
 {
     /**
      * @var ShapesFactoryInterface
      */
     private $shapesFactory;
-
-    /**
-     * @var Response
-     */
-    private $response;
-
-    /**
-     * @var Request
-     */
-    private $request;
 
     /**
      * @param ShapesFactory $shapesFactory
@@ -36,8 +23,7 @@ class Shapes
     public function __construct(ShapesFactory $shapesFactory, Response $response, Request $request)
     {
         $this->shapesFactory = $shapesFactory;
-        $this->response = $response;
-        $this->request = $request;
+        parent::__construct($response, $request);
     }
 
     /**
@@ -46,18 +32,11 @@ class Shapes
      */
     public function circle(string $radius)
     {
+        $validationMsg = 'Please pass radius of circle as float or int.';
+        $this->filterValidateType($radius, FILTER_VALIDATE_FLOAT, $validationMsg);
 
-        if (false === filter_var($radius, FILTER_VALIDATE_FLOAT)) {
-            throw InvalidParameterException::create('Please pass radius of circle as float or int.');
-        }
-
-        try {
-            $circle = $this->getShapesFactory()->createCircle((float) $radius);
-            $this->getResponse()->toJson($circle->describe());
-
-        } catch (Throwable $ex) {
-            header($ex->getMessage(), true, 500);
-        }
+        $circle = $this->getShapesFactory()->createCircle((float) $radius);
+        $this->getResponse()->toJson($circle->describe());
     }
 
     /**
@@ -65,18 +44,12 @@ class Shapes
      */
     public function square()
     {
+        $validationMsg = 'Please pass length of square as float or int.';
         $length = $this->getRequest()->getRequestParam(Request::METHOD_GET, 'length');
-        if (false === filter_var($length, FILTER_VALIDATE_FLOAT)) {
-            throw InvalidParameterException::create('Please pass length of square as float or int.');
-        }
+        $this->filterValidateType($length, FILTER_VALIDATE_FLOAT, $validationMsg);
 
-        try {
-            $square = $this->getShapesFactory()->createSquare((float) $length);
-            $this->getResponse()->toJson($square->describe());
-
-        } catch (Throwable $ex) {
-            header($ex->getMessage(), true, 500);
-        }
+        $square = $this->getShapesFactory()->createSquare((float) $length);
+        $this->getResponse()->toJson($square->describe());
     }
 
     /**
@@ -84,23 +57,17 @@ class Shapes
      */
     public function rectangle()
     {
+        $lengthValidationMsg = 'Please pass length of rectangle as float or int.';
+        $widthValidationMsg = 'Please pass width of rectangle as float or int.';
+
         $length = $this->getRequest()->getRequestParam(Request::METHOD_POST, 'length');
         $width = $this->getRequest()->getRequestParam(Request::METHOD_POST, 'width');
 
-        if (false === filter_var($length, FILTER_VALIDATE_FLOAT)) {
-            throw InvalidParameterException::create('Please pass length of rectangle as float or int.');
-        }
+        $this->filterValidateType($length, FILTER_VALIDATE_FLOAT, $lengthValidationMsg);
+        $this->filterValidateType($width, FILTER_VALIDATE_FLOAT, $widthValidationMsg);
 
-        if (false === filter_var($width, FILTER_VALIDATE_FLOAT)) {
-            throw InvalidParameterException::create('Please pass width of rectangle as float or int.');
-        }
-
-        try {
-            $rectangle = $this->getShapesFactory()->createRectangle((float) $length, (float) $width);
-            $this->getResponse()->toJson($rectangle->describe());
-        } catch (Throwable $ex) {
-            header($ex->getMessage(), true, 500);
-        }
+        $rectangle = $this->getShapesFactory()->createRectangle((float) $length, (float) $width);
+        $this->getResponse()->toJson($rectangle->describe());
     }
 
     /**
@@ -109,21 +76,5 @@ class Shapes
     private function getShapesFactory(): ShapesFactoryInterface
     {
         return $this->shapesFactory;
-    }
-
-    /**
-     * @return ResponseInterface
-     */
-    private function getResponse(): ResponseInterface
-    {
-        return $this->response;
-    }
-
-    /**
-     * @return Request
-     */
-    private function getRequest(): Request
-    {
-        return $this->request;
     }
 }
