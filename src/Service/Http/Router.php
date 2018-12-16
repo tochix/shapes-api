@@ -76,10 +76,10 @@ class Router
 
         switch ($routeInfo[0]) {
             case Dispatcher::NOT_FOUND:
-                header('Not Found', true, 404);
+                $this->getRequest()->sendNotFoundHeader();
                 break;
             case Dispatcher::METHOD_NOT_ALLOWED:
-                header('Method Not Allowed on this endpoint', true, 405);
+                $this->getRequest()->sendMethodNotAllowedHeader();
                 break;
             case Dispatcher::FOUND:
                 list($state, $handler, $vars) = $routeInfo;

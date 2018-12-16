@@ -20,4 +20,8 @@ interface RequestInterface
      * @return null|string
      */
     public function getRequestParam(string $type, string $parameter);
+
+    public function sendMethodNotAllowedHeader();
+
+    public function sendNotFoundHeader();
 }

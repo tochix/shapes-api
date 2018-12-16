@@ -8,6 +8,7 @@ class Request implements RequestInterface
     const METHOD_GET = 'GET';
     const METHOD_POST = 'POST';
     const URI = 'REQUEST_URI';
+    const SERVER_PROTOCOL = 'SERVER_PROTOCOL';
 
     /**
      * @return string
@@ -23,6 +24,16 @@ class Request implements RequestInterface
     public function getUri(): string
     {
         return $_SERVER[static::URI];
+    }
+
+    public function sendMethodNotAllowedHeader()
+    {
+        header($this->getServerProtocol() . ' 405 Method Not Allowed');
+    }
+
+    public function sendNotFoundHeader()
+    {
+        header($this->getServerProtocol() . ' 404 Not Found');
     }
 
     /**
@@ -76,5 +87,10 @@ class Request implements RequestInterface
         }
 
         return null;
+    }
+
+    private function getServerProtocol()
+    {
+        return $_SERVER[static::SERVER_PROTOCOL];
     }
 }
